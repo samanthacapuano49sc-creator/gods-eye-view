@@ -28,28 +28,8 @@ services:
       - key: HOST
         value: "0.0.0.0"
 
-      # REQUIRED. Paste your key in the Render dashboard — never commit it.
-      # RESTRICT IT FIRST: Google Cloud Console -> Credentials -> your key ->
-      # Application restrictions -> Websites -> add your Render URL. An
-      # unrestricted key on a public site can be scraped and billed to you.
-      - key: GOOGLE_MAPS_API_KEY
-        sync: false
-
-      # REQUIRED FOR CONVERSATIONAL VOICE. Without it the microphone still
-      # works — navigation, layer toggles, view control and incident search all
-      # run off a local matcher with no network call — but it cannot hold a
-      # conversation, because there is no model to ask.
-      #
-      # Free: an OpenRouter key costs nothing and the app only ever calls
-      # models whose ids end in ":free". Get one at https://openrouter.ai/keys
-      #
-      # sync: false means Render prompts for the value in the dashboard and it
-      # NEVER enters this repository. That matters more than usual here: this
-      # repo is public, so a key committed to it would be scraped within
-      # minutes and would live in the git history permanently.
-      - key: OPENROUTER_API_KEY
-        sync: false
-
+      # Google Maps and OpenRouter keys intentionally omitted.
+      # Default globe: free OpenStreetMap; voice AI unavailable until configured.
       # ---- Camera licensing ----
       # These packs are OFF here on purpose. Their terms permit personal use but
       # NOT redistribution, which is what a public URL is:

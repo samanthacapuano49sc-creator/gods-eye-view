@@ -97,10 +97,9 @@ async function init() {
 
     // Set Google Maps API key for 3D Tiles
     const googleApiKey = import.meta.env.GOOGLE_MAPS_API_KEY;
-    if (!googleApiKey) {
-      throw new Error('GOOGLE_MAPS_API_KEY not found. Set it as an environment variable.');
+    if (googleApiKey) {
+      Cesium.GoogleMaps.defaultApiKey = googleApiKey;
     }
-    Cesium.GoogleMaps.defaultApiKey = googleApiKey;
 
     // Expose API key globally for geocoding in locations.js
     window.__GOOGLE_MAPS_API_KEY__ = googleApiKey;
@@ -221,7 +220,8 @@ async function init() {
     loaderStatus.textContent = 'Loading Google 3D Tiles...';
     let tileset = null;
     try {
-      // Load Google Photorealistic 3D Tiles
+      // Google tiles are optional; use the built-in OSM globe without a paid API key.
+      if (!googleApiKey) throw new Error('Google Maps key not configured; using OpenStreetMap');
       tileset = await Cesium.createGooglePhotorealistic3DTileset({
         onlyUsingWithGoogleGeocoder: true,
       });
